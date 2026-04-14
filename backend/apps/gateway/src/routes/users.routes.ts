@@ -16,397 +16,872 @@ export const router = Router();
 
 router.get(
   "/me",
-  /*
-    #swagger.tags = ['Users']
-    #swagger.summary = 'Récupérer le profil de l\'utilisateur connecté'
-    #swagger.parameters['Authorization'] = {
-      in: 'header',
-      required: true,
-      type: 'string',
-      description: 'Bearer token'
-    }
-    #swagger.responses[200] = {
-      description: 'Profil utilisateur',
-      schema: {
-        _id: '67e57ac2f5a2a6f0af0b62d0',
-        username: 'john',
-        email: 'john@mail.com',
-        imageUrl: 'https://example.com/avatar.png',
-        profileVisibility: 'public',
-        animeList: [{ animeId: 4224, status: 'watching', isFavorite: true, userComment: '', rating: 8 }],
-        createdAt: '2026-01-01T10:00:00.000Z',
-        updatedAt: '2026-01-01T10:00:00.000Z'
-      }
-    }
-    #swagger.responses[401] = {
-      description: 'Token manquant ou invalide',
-      schema: { error: 'UNAUTHORIZED' }
-    }
-    #swagger.responses[404] = {
-      description: 'Utilisateur introuvable',
-      schema: { error: 'NOT_FOUND', message: 'Not found' }
-    }
-    #swagger.responses[500] = {
-      description: 'Erreur interne Gateway',
-      schema: { error: 'INTERNAL_SERVER_ERROR' }
-    }
-    */
+  /**
+   * @openapi
+   * /users/me:
+   *   get:
+   *     summary: Recuperer le profil de l'utilisateur connecte
+   *     tags:
+   *       - Users
+   *     security:
+   *       - bearerAuth: []
+   *     responses:
+   *       200:
+   *         description: Profil utilisateur
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 _id:
+   *                   type: string
+   *                   example: "67e57ac2f5a2a6f0af0b62d0"
+   *                 username:
+   *                   type: string
+   *                   example: "john"
+   *                 email:
+   *                   type: string
+   *                   example: "john@mail.com"
+   *                 imageUrl:
+   *                   type: string
+   *                   example: "https://example.com/avatar.png"
+   *                 profileVisibility:
+   *                   type: string
+   *                   example: "public"
+   *                 animeList:
+   *                   type: array
+   *                   items:
+   *                     type: object
+   *                     properties:
+   *                       animeId:
+   *                         type: integer
+   *                         example: 4224
+   *                       status:
+   *                         type: string
+   *                         example: "watching"
+   *                       isFavorite:
+   *                         type: boolean
+   *                         example: true
+   *                       userComment:
+   *                         type: string
+   *                         example: ""
+   *                       rating:
+   *                         type: integer
+   *                         example: 8
+   *                 createdAt:
+   *                   type: string
+   *                   example: "2026-01-01T10:00:00.000Z"
+   *                 updatedAt:
+   *                   type: string
+   *                   example: "2026-01-01T10:00:00.000Z"
+   *       401:
+   *         description: Token manquant ou invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "UNAUTHORIZED"
+   *       404:
+   *         description: Utilisateur introuvable
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "NOT_FOUND"
+   *                 message:
+   *                   type: string
+   *                   example: "Not found"
+   *       500:
+   *         description: Erreur interne Gateway
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INTERNAL_SERVER_ERROR"
+   */
   handleGetMe,
 );
 router.patch(
   "/me/visibility",
-  /*
-    #swagger.tags = ['Users']
-    #swagger.summary = 'Modifier la visibilité du profil'
-    #swagger.parameters['Authorization'] = {
-      in: 'header',
-      required: true,
-      type: 'string',
-      description: 'Bearer token'
-    }
-    #swagger.parameters['body'] = {
-      in: 'body',
-      required: true,
-      schema: {
-        visibility: 'public'
-      }
-    }
-    #swagger.responses[200] = {
-      description: 'Mise à jour effectuée (réponse null)',
-      schema: null
-    }
-    #swagger.responses[400] = {
-      description: 'Corps invalide',
-      schema: { error: 'INVALID_INPUT' }
-    }
-    #swagger.responses[401] = {
-      description: 'Token manquant ou invalide',
-      schema: { error: 'UNAUTHORIZED' }
-    }
-    #swagger.responses[404] = {
-      description: 'Utilisateur introuvable',
-      schema: { error: 'NOT_FOUND', message: 'Not found' }
-    }
-    #swagger.responses[500] = {
-      description: 'Erreur interne Gateway',
-      schema: { error: 'INTERNAL_SERVER_ERROR' }
-    }
-    */
+  /**
+   * @openapi
+   * /users/me/visibility:
+   *   patch:
+   *     summary: Modifier la visibilite du profil
+   *     tags:
+   *       - Users
+   *     security:
+   *       - bearerAuth: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - visibility
+   *             properties:
+   *               visibility:
+   *                 type: string
+   *                 example: "public"
+   *     responses:
+   *       200:
+   *         description: Mise a jour effectuee
+   *       400:
+   *         description: Corps invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INVALID_INPUT"
+   *       401:
+   *         description: Token manquant ou invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "UNAUTHORIZED"
+   *       404:
+   *         description: Utilisateur introuvable
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "NOT_FOUND"
+   *                 message:
+   *                   type: string
+   *                   example: "Not found"
+   *       500:
+   *         description: Erreur interne Gateway
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INTERNAL_SERVER_ERROR"
+   */
   handlePatchVisibility,
 );
 
 router.get(
   "/me/list",
-  /*
-    #swagger.tags = ['Users']
-    #swagger.summary = 'Récupérer la liste utilisateur'
-    #swagger.parameters['Authorization'] = {
-      in: 'header',
-      required: true,
-      type: 'string',
-      description: 'Bearer token'
-    }
-    #swagger.responses[200] = {
-      description: 'Liste récupérée',
-      schema: {
-        animeList: [{ animeId: 4224, status: 'watching', isFavorite: true, userComment: '', rating: 8 }]
-      }
-    }
-    #swagger.responses[401] = {
-      description: 'Token manquant ou invalide',
-      schema: { error: 'UNAUTHORIZED' }
-    }
-    #swagger.responses[404] = {
-      description: 'Utilisateur introuvable',
-      schema: { error: 'NOT_FOUND', message: 'Not found' }
-    }
-    #swagger.responses[500] = {
-      description: 'Erreur interne Gateway',
-      schema: { error: 'INTERNAL_SERVER_ERROR' }
-    }
-    */
+  /**
+   * @openapi
+   * /users/me/list:
+   *   get:
+   *     summary: Recuperer la liste utilisateur
+   *     tags:
+   *       - Users
+   *     security:
+   *       - bearerAuth: []
+   *     responses:
+   *       200:
+   *         description: Liste recuperee
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 animeList:
+   *                   type: array
+   *                   items:
+   *                     type: object
+   *                     properties:
+   *                       animeId:
+   *                         type: integer
+   *                         example: 4224
+   *                       status:
+   *                         type: string
+   *                         example: "watching"
+   *                       isFavorite:
+   *                         type: boolean
+   *                         example: true
+   *                       userComment:
+   *                         type: string
+   *                         example: ""
+   *                       rating:
+   *                         type: integer
+   *                         example: 8
+   *       401:
+   *         description: Token manquant ou invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "UNAUTHORIZED"
+   *       404:
+   *         description: Utilisateur introuvable
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "NOT_FOUND"
+   *                 message:
+   *                   type: string
+   *                   example: "Not found"
+   *       500:
+   *         description: Erreur interne Gateway
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INTERNAL_SERVER_ERROR"
+   */
   handleGetList,
 );
 router.patch(
   "/me/list",
-  /*
-    #swagger.tags = ['Users']
-    #swagger.summary = 'Ajouter ou modifier un anime dans la liste'
-    #swagger.parameters['Authorization'] = {
-      in: 'header',
-      required: true,
-      type: 'string',
-      description: 'Bearer token'
-    }
-    #swagger.parameters['body'] = {
-      in: 'body',
-      required: true,
-      schema: {
-        animeId: 4224,
-        rating: 8,
-        userComment: '',
-        status: 'watching',
-        isFavorite: false
-      }
-    }
-    #swagger.responses[200] = {
-      description: 'Liste mise à jour',
-      schema: { ok: true }
-    }
-    #swagger.responses[400] = {
-      description: 'Corps invalide',
-      schema: { error: 'INVALID_INPUT' }
-    }
-    #swagger.responses[401] = {
-      description: 'Token manquant ou invalide',
-      schema: { error: 'UNAUTHORIZED' }
-    }
-    #swagger.responses[404] = {
-      description: 'Utilisateur introuvable',
-      schema: { error: 'NOT_FOUND', message: 'NO_USER_EXIST' }
-    }
-    #swagger.responses[500] = {
-      description: 'Erreur interne Gateway',
-      schema: { error: 'INTERNAL_SERVER_ERROR' }
-    }
-    */
+  /**
+   * @openapi
+   * /users/me/list:
+   *   patch:
+   *     summary: Ajouter ou modifier un anime dans la liste
+   *     tags:
+   *       - Users
+   *     security:
+   *       - bearerAuth: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - animeId
+   *               - status
+   *             properties:
+   *               animeId:
+   *                 type: integer
+   *                 example: 4224
+   *               rating:
+   *                 type: integer
+   *                 example: 8
+   *               userComment:
+   *                 type: string
+   *                 example: ""
+   *               status:
+   *                 type: string
+   *                 example: "watching"
+   *               isFavorite:
+   *                 type: boolean
+   *                 example: false
+   *     responses:
+   *       200:
+   *         description: Liste mise a jour
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 ok:
+   *                   type: boolean
+   *                   example: true
+   *       400:
+   *         description: Corps invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INVALID_INPUT"
+   *       401:
+   *         description: Token manquant ou invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "UNAUTHORIZED"
+   *       404:
+   *         description: Utilisateur introuvable
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "NOT_FOUND"
+   *                 message:
+   *                   type: string
+   *                   example: "NO_USER_EXIST"
+   *       500:
+   *         description: Erreur interne Gateway
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INTERNAL_SERVER_ERROR"
+   */
   handlePatchList,
 );
 router.delete(
   "/me/list/:id",
-  /*
-    #swagger.tags = ['Users']
-    #swagger.summary = 'Supprimer un anime de la liste'
-    #swagger.parameters['Authorization'] = {
-      in: 'header',
-      required: true,
-      type: 'string',
-      description: 'Bearer token'
-    }
-    #swagger.parameters['id'] = {
-      in: 'path',
-      required: true,
-      type: 'integer',
-      description: 'ID de l\'anime à supprimer'
-    }
-    #swagger.responses[200] = {
-      description: 'Anime supprimé',
-      schema: { ok: true }
-    }
-    #swagger.responses[400] = {
-      description: 'Paramètre id invalide',
-      schema: {
-        error: 'INVALID_PARAMS',
-        details: [{ path: 'id', message: 'Number must be greater than 0' }]
-      }
-    }
-    #swagger.responses[401] = {
-      description: 'Token manquant/invalide ou action non autorisée',
-      schema: { error: 'UNAUTHORIZED' }
-    }
-    #swagger.responses[404] = {
-      description: 'Utilisateur introuvable',
-      schema: { error: 'NOT_FOUND', message: 'Not found' }
-    }
-    #swagger.responses[500] = {
-      description: 'Erreur interne Gateway',
-      schema: { error: 'INTERNAL_SERVER_ERROR' }
-    }
-    */
+  /**
+   * @openapi
+   * /users/me/list/{id}:
+   *   delete:
+   *     summary: Supprimer un anime de la liste
+   *     tags:
+   *       - Users
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: integer
+   *         description: ID de l'anime a supprimer
+   *         example: 4224
+   *     responses:
+   *       200:
+   *         description: Anime supprime
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 ok:
+   *                   type: boolean
+   *                   example: true
+   *       400:
+   *         description: Parametre id invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INVALID_PARAMS"
+   *                 details:
+   *                   type: array
+   *                   items:
+   *                     type: object
+   *                     properties:
+   *                       path:
+   *                         type: string
+   *                         example: "id"
+   *                       message:
+   *                         type: string
+   *                         example: "Number must be greater than 0"
+   *       401:
+   *         description: Token manquant ou action non autorisee
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "UNAUTHORIZED"
+   *       404:
+   *         description: Utilisateur introuvable
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "NOT_FOUND"
+   *                 message:
+   *                   type: string
+   *                   example: "Not found"
+   *       500:
+   *         description: Erreur interne Gateway
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INTERNAL_SERVER_ERROR"
+   */
   handleDeleteFromList,
 );
 
 router.get(
   "/me/favorites",
-  /*
-    #swagger.tags = ['Users']
-    #swagger.summary = 'Récupérer les favoris du profil connecté'
-    #swagger.parameters['Authorization'] = {
-      in: 'header',
-      required: true,
-      type: 'string',
-      description: 'Bearer token'
-    }
-    #swagger.responses[200] = {
-      description: 'Liste des favoris',
-      schema: [
-        { animeId: 4224, status: 'watching', isFavorite: true, userComment: '', rating: 8 }
-      ]
-    }
-    #swagger.responses[401] = {
-      description: 'Token manquant ou invalide',
-      schema: { error: 'UNAUTHORIZED' }
-    }
-    #swagger.responses[404] = {
-      description: 'Utilisateur introuvable',
-      schema: { error: 'NOT_FOUND', message: 'Not found' }
-    }
-    #swagger.responses[500] = {
-      description: 'Erreur interne Gateway',
-      schema: { error: 'INTERNAL_SERVER_ERROR' }
-    }
-    */
+  /**
+   * @openapi
+   * /users/me/favorites:
+   *   get:
+   *     summary: Recuperer les favoris du profil connecte
+   *     tags:
+   *       - Users
+   *     security:
+   *       - bearerAuth: []
+   *     responses:
+   *       200:
+   *         description: Liste des favoris
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 type: object
+   *                 properties:
+   *                   animeId:
+   *                     type: integer
+   *                     example: 4224
+   *                   status:
+   *                     type: string
+   *                     example: "watching"
+   *                   isFavorite:
+   *                     type: boolean
+   *                     example: true
+   *                   userComment:
+   *                     type: string
+   *                     example: ""
+   *                   rating:
+   *                     type: integer
+   *                     example: 8
+   *       401:
+   *         description: Token manquant ou invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "UNAUTHORIZED"
+   *       404:
+   *         description: Utilisateur introuvable
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "NOT_FOUND"
+   *                 message:
+   *                   type: string
+   *                   example: "Not found"
+   *       500:
+   *         description: Erreur interne Gateway
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INTERNAL_SERVER_ERROR"
+   */
   handleGetFavorites,
 );
 router.put(
   "/me/favorites/:id",
-  /*
-    #swagger.tags = ['Users']
-    #swagger.summary = 'Ajouter un anime aux favoris'
-    #swagger.parameters['Authorization'] = {
-      in: 'header',
-      required: true,
-      type: 'string',
-      description: 'Bearer token'
-    }
-    #swagger.parameters['id'] = {
-      in: 'path',
-      required: true,
-      type: 'integer',
-      description: 'ID de l\'anime à ajouter aux favoris'
-    }
-    #swagger.responses[200] = {
-      description: 'Favori ajouté/mis à jour',
-      schema: { ok: true }
-    }
-    #swagger.responses[400] = {
-      description: 'Paramètre id invalide',
-      schema: {
-        error: 'INVALID_PARAMS',
-        details: [{ path: 'id', message: 'Number must be greater than 0' }]
-      }
-    }
-    #swagger.responses[401] = {
-      description: 'Token manquant ou invalide',
-      schema: { error: 'UNAUTHORIZED' }
-    }
-    #swagger.responses[404] = {
-      description: 'Utilisateur introuvable',
-      schema: { error: 'NOT_FOUND', message: 'NO_USER_EXIST' }
-    }
-    #swagger.responses[500] = {
-      description: 'Erreur interne Gateway',
-      schema: { error: 'INTERNAL_SERVER_ERROR' }
-    }
-    */
+  /**
+   * @openapi
+   * /users/me/favorites/{id}:
+   *   put:
+   *     summary: Ajouter un anime aux favoris
+   *     tags:
+   *       - Users
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: integer
+   *         description: ID de l'anime a ajouter aux favoris
+   *         example: 4224
+   *     responses:
+   *       200:
+   *         description: Favori ajoute ou mis a jour
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 ok:
+   *                   type: boolean
+   *                   example: true
+   *       400:
+   *         description: Parametre id invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INVALID_PARAMS"
+   *                 details:
+   *                   type: array
+   *                   items:
+   *                     type: object
+   *                     properties:
+   *                       path:
+   *                         type: string
+   *                         example: "id"
+   *                       message:
+   *                         type: string
+   *                         example: "Number must be greater than 0"
+   *       401:
+   *         description: Token manquant ou invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "UNAUTHORIZED"
+   *       404:
+   *         description: Utilisateur introuvable
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "NOT_FOUND"
+   *                 message:
+   *                   type: string
+   *                   example: "NO_USER_EXIST"
+   *       500:
+   *         description: Erreur interne Gateway
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INTERNAL_SERVER_ERROR"
+   */
   handleAddFavorite,
 );
 router.delete(
   "/me/favorites/:id",
-  /*
-    #swagger.tags = ['Users']
-    #swagger.summary = 'Retirer un anime des favoris'
-    #swagger.parameters['Authorization'] = {
-      in: 'header',
-      required: true,
-      type: 'string',
-      description: 'Bearer token'
-    }
-    #swagger.parameters['id'] = {
-      in: 'path',
-      required: true,
-      type: 'integer',
-      description: 'ID de l\'anime à retirer des favoris'
-    }
-    #swagger.responses[200] = {
-      description: 'Favori retiré',
-      schema: { ok: true }
-    }
-    #swagger.responses[400] = {
-      description: 'Paramètre id invalide',
-      schema: {
-        error: 'INVALID_PARAMS',
-        details: [{ path: 'id', message: 'Number must be greater than 0' }]
-      }
-    }
-    #swagger.responses[401] = {
-      description: 'Token manquant ou invalide',
-      schema: { error: 'UNAUTHORIZED' }
-    }
-    #swagger.responses[404] = {
-      description: 'Utilisateur introuvable ou anime absent',
-      schema: { error: 'NOT_FOUND', message: 'ANIME_NOT_FOUND_IN_LIST' }
-    }
-    #swagger.responses[500] = {
-      description: 'Erreur interne Gateway',
-      schema: { error: 'INTERNAL_SERVER_ERROR' }
-    }
-    */
+  /**
+   * @openapi
+   * /users/me/favorites/{id}:
+   *   delete:
+   *     summary: Retirer un anime des favoris
+   *     tags:
+   *       - Users
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: integer
+   *         description: ID de l'anime a retirer des favoris
+   *         example: 4224
+   *     responses:
+   *       200:
+   *         description: Favori retire
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 ok:
+   *                   type: boolean
+   *                   example: true
+   *       400:
+   *         description: Parametre id invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INVALID_PARAMS"
+   *                 details:
+   *                   type: array
+   *                   items:
+   *                     type: object
+   *                     properties:
+   *                       path:
+   *                         type: string
+   *                         example: "id"
+   *                       message:
+   *                         type: string
+   *                         example: "Number must be greater than 0"
+   *       401:
+   *         description: Token manquant ou invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "UNAUTHORIZED"
+   *       404:
+   *         description: Utilisateur introuvable ou anime absent
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "NOT_FOUND"
+   *                 message:
+   *                   type: string
+   *                   example: "ANIME_NOT_FOUND_IN_LIST"
+   *       500:
+   *         description: Erreur interne Gateway
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INTERNAL_SERVER_ERROR"
+   */
   handleRemoveFavorite,
 );
 
 router.get(
   "/profile/:username",
-  /*
-    #swagger.tags = ['Users']
-    #swagger.summary = 'Récupérer un profil public par username'
-    #swagger.parameters['username'] = {
-      in: 'path',
-      required: true,
-      type: 'string'
-    }
-    #swagger.responses[200] = {
-      description: 'Profil utilisateur (si private: animeList absent)',
-      schema: {
-        username: 'john',
-        imageUrl: 'https://example.com/avatar.png',
-        animeList: [{ animeId: 4224, status: 'watching', isFavorite: true, userComment: '', rating: 8 }]
-      }
-    }
-    #swagger.responses[400] = {
-      description: 'Paramètre username invalide',
-      schema: {
-        error: 'INVALID_PARAMS',
-        details: [{ path: 'username', message: 'Required' }]
-      }
-    }
-    #swagger.responses[404] = {
-      description: 'Utilisateur introuvable ou profil ghost',
-      schema: { error: 'NOT_FOUND', message: 'NO_USER_EXIST' }
-    }
-    #swagger.responses[500] = {
-      description: 'Erreur interne Gateway',
-      schema: { error: 'INTERNAL_SERVER_ERROR' }
-    }
-    */
+  /**
+   * @openapi
+   * /users/profile/{username}:
+   *   get:
+   *     summary: Recuperer un profil public par username
+   *     tags:
+   *       - Users
+   *     parameters:
+   *       - in: path
+   *         name: username
+   *         required: true
+   *         schema:
+   *           type: string
+   *         example: "john"
+   *     responses:
+   *       200:
+   *         description: Profil utilisateur
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 username:
+   *                   type: string
+   *                   example: "john"
+   *                 imageUrl:
+   *                   type: string
+   *                   example: "https://example.com/avatar.png"
+   *                 animeList:
+   *                   type: array
+   *                   items:
+   *                     type: object
+   *                     properties:
+   *                       animeId:
+   *                         type: integer
+   *                         example: 4224
+   *                       status:
+   *                         type: string
+   *                         example: "watching"
+   *                       isFavorite:
+   *                         type: boolean
+   *                         example: true
+   *                       userComment:
+   *                         type: string
+   *                         example: ""
+   *                       rating:
+   *                         type: integer
+   *                         example: 8
+   *       400:
+   *         description: Parametre username invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INVALID_PARAMS"
+   *                 details:
+   *                   type: array
+   *                   items:
+   *                     type: object
+   *                     properties:
+   *                       path:
+   *                         type: string
+   *                         example: "username"
+   *                       message:
+   *                         type: string
+   *                         example: "Required"
+   *       404:
+   *         description: Utilisateur introuvable ou profil ghost
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "NOT_FOUND"
+   *                 message:
+   *                   type: string
+   *                   example: "NO_USER_EXIST"
+   *       500:
+   *         description: Erreur interne Gateway
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INTERNAL_SERVER_ERROR"
+   */
   handleGetProfileByUsername,
 );
 router.get(
   "/profile/:username/favorites",
-  /*
-    #swagger.tags = ['Users']
-    #swagger.summary = 'Récupérer les favoris d\'un profil public'
-    #swagger.parameters['username'] = {
-      in: 'path',
-      required: true,
-      type: 'string'
-    }
-    #swagger.responses[200] = {
-      description: 'Favoris (uniquement si profil public)',
-      schema: [
-        { animeId: 4224, status: 'watching', isFavorite: true, userComment: '', rating: 8 }
-      ]
-    }
-    #swagger.responses[400] = {
-      description: 'Paramètre username invalide',
-      schema: {
-        error: 'INVALID_PARAMS',
-        details: [{ path: 'username', message: 'Required' }]
-      }
-    }
-    #swagger.responses[401] = {
-      description: 'Profil privé',
-      schema: { error: 'UNAUTHORIZED', message: 'Unauthorized' }
-    }
-    #swagger.responses[404] = {
-      description: 'Utilisateur introuvable ou profil ghost',
-      schema: { error: 'NOT_FOUND', message: 'NO_USER_EXIST' }
-    }
-    #swagger.responses[500] = {
-      description: 'Erreur interne Gateway',
-      schema: { error: 'INTERNAL_SERVER_ERROR' }
-    }
-    */
+  /**
+   * @openapi
+   * /users/profile/{username}/favorites:
+   *   get:
+   *     summary: Recuperer les favoris d'un profil public
+   *     tags:
+   *       - Users
+   *     parameters:
+   *       - in: path
+   *         name: username
+   *         required: true
+   *         schema:
+   *           type: string
+   *         example: "john"
+   *     responses:
+   *       200:
+   *         description: Favoris
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 type: object
+   *                 properties:
+   *                   animeId:
+   *                     type: integer
+   *                     example: 4224
+   *                   status:
+   *                     type: string
+   *                     example: "watching"
+   *                   isFavorite:
+   *                     type: boolean
+   *                     example: true
+   *                   userComment:
+   *                     type: string
+   *                     example: ""
+   *                   rating:
+   *                     type: integer
+   *                     example: 8
+   *       400:
+   *         description: Parametre username invalide
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INVALID_PARAMS"
+   *                 details:
+   *                   type: array
+   *                   items:
+   *                     type: object
+   *                     properties:
+   *                       path:
+   *                         type: string
+   *                         example: "username"
+   *                       message:
+   *                         type: string
+   *                         example: "Required"
+   *       401:
+   *         description: Profil prive
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "UNAUTHORIZED"
+   *                 message:
+   *                   type: string
+   *                   example: "Unauthorized"
+   *       404:
+   *         description: Utilisateur introuvable ou profil ghost
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "NOT_FOUND"
+   *                 message:
+   *                   type: string
+   *                   example: "NO_USER_EXIST"
+   *       500:
+   *         description: Erreur interne Gateway
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: string
+   *                   example: "INTERNAL_SERVER_ERROR"
+   */
   handleGetFavoritesByUsername,
 );
 

@@ -17,11 +17,12 @@ export async function registerUser(userInfo: RegisterDto): Promise<void> {
 	const parsed = RegisterSchema.safeParse(userInfo)
 	if (!parsed.success) throw new ValidationError("INVALID_INPUT")
 
-	const existEmail = await UserModel.countDocuments({email: userInfo.email}) !== 0
-	const existUsername = await UserModel.countDocuments({username: userInfo.username}) !== 0
-	if (existEmail || existUsername) {
-		throw new ConflictError("USER_ALREADY_EXISTS")
-	}
+	const existEmail = await UserModel.countDocuments({email: userInfo.email.toLowerCase()}) !== 0
+	const existUsername = await UserModel.countDocuments({username: userInfo.username.toLowerCase()}) !== 0
+
+	if (existEmail) throw new ConflictError("EMAIL_ALREADY_EXISTS")
+	if (existUsername) throw new ConflictError("USERNAME_ALREADY_EXISTS")
+
 	const passwordHash = await bcrypt.hash(userInfo.password, 10)
 	try {
 		await UserModel.create({
@@ -38,7 +39,7 @@ export async function loginUser(userInfo: LoginDto): Promise<tokenType> {
 	const parsed = LoginSchema.safeParse(userInfo)
 	if (!parsed.success) throw new ValidationError("INVALID_INPUT")
 
-	const user = await UserModel.findOne({email: userInfo.email})
+	const user = await UserModel.findOne({email: userInfo.email.toLowerCase()})
 	if (user === null) {
 		throw new NotFoundError("USER_NOT_FOUND")
 	}

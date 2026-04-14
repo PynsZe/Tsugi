@@ -1,82 +1,37 @@
+import swaggerJSDoc from "swagger-jsdoc";
+import * as swaggerUi from "swagger-ui-express";
+import { Express } from "express";
 import path from "node:path";
-import {promises as fs} from "node:fs";
-import swaggerAutogen from "swagger-autogen";
-import config from "@config/config"
+import config from "../../../../packages/config/config";
 
-const outputFile = path.resolve(__dirname, "swagger.json");
-const requiredPrefix = config.base_url.api;
-const endpointsFiles = [
-	path.resolve(__dirname, "../app.ts"),
-	path.resolve(__dirname, "../routes/auth.routes.ts"),
-	path.resolve(__dirname, "../routes/users.routes.ts"),
-	path.resolve(__dirname, "../routes/catalog.routes.ts"),
-];
+export const setupSwagger = (app: Express): void => {
+	const options: swaggerJSDoc.Options = {
+		definition: {
+			openapi: "3.0.0",
+			info: {
+				title: "Gateway API",
+				version: "1.0.0",
+				description: "Documentation du service gateway",
+			},
+			servers: [
+				{ url: `http://localhost:5000${config.base_url.api}` }
+			],
+			components: {
+				securitySchemes: {
+					bearerAuth: {
+						type: "http",
+						scheme: "bearer",
+						bearerFormat: "JWT",
+					},
+				},
+			},
+		},
+		apis: [
+			path.join(__dirname, "../routes/*.ts"),
+			path.join(__dirname, "../routes/*.js"),
+		],
+	};
 
-const doc = {
-	info: {
-		title: "Gateway API",
-		description: "Documentation Swagger du service gateway",
-	},
-	servers: [
-		{url: `http://localhost:3000${requiredPrefix}`}
-	],
-	consumes: ["application/json"],
-	produces: ["application/json"],
+	const swaggerSpec = swaggerJSDoc(options);
+	app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 };
-
-const ignoredPaths = [
-	`${config.base_url.api}/doc/spec/gateway.json`,
-	"/doc/spec/gateway.json"
-];
-const routeRoots = ["/auth", "/users", "/catalog", "/doc"];
-
-swaggerAutogen({openapi: "3.0.0"})(outputFile, endpointsFiles, doc)
-	.then(async () => {
-		const rawSpec = await fs.readFile(outputFile, "utf8");
-		const spec = JSON.parse(rawSpec) as {
-			paths?: Record<string, unknown>,
-			servers?: Array<{ url: string }>
-		};
-
-		if (spec.paths) {
-			const normalizedPaths = Object.fromEntries(
-				Object.entries(spec.paths).map(([pathKey, value]) => {
-					const normalizedKey = pathKey.startsWith("config.base_url.api")
-						? pathKey.replace("config.base_url.api", requiredPrefix)
-						: pathKey;
-
-					if (normalizedKey.startsWith(requiredPrefix)) {
-						return [normalizedKey, value];
-					}
-
-					if (routeRoots.some((root) => normalizedKey.startsWith(root))) {
-						return [`${requiredPrefix}${normalizedKey}`, value];
-					}
-
-					return [normalizedKey, value];
-				}),
-			);
-
-			for (const ignoredPath of ignoredPaths) {
-				delete normalizedPaths[ignoredPath];
-			}
-
-			spec.paths = Object.fromEntries(
-				Object.entries(normalizedPaths)
-					.filter(([pathKey]) => pathKey.startsWith(requiredPrefix))
-					.map(([pathKey, value]) => {
-						const relativePath = pathKey.slice(requiredPrefix.length) || "/";
-						return [relativePath.startsWith("/") ? relativePath : `/${relativePath}`, value];
-					}),
-			);
-
-			spec.servers = [{url: `http://localhost:3000${requiredPrefix}`}];
-		}
-
-		await fs.writeFile(outputFile, `${JSON.stringify(spec, null, 2)}\n`, "utf8");
-		console.log(`[SWAGGER] generated at ${outputFile}`);
-	})
-	.catch((error: unknown) => {
-		console.error("[SWAGGER] generation failed", error);
-		process.exit(1);
-	});

@@ -14,308 +14,535 @@ router.use(requireAuth);
 
 router.get(
     "/",
-    /*
-      #swagger.tags = ['Catalog']
-      #swagger.summary = 'Récupérer le catalogue'
-      #swagger.parameters['Authorization'] = {
-        in: 'header',
-        required: true,
-        type: 'string',
-        description: 'Bearer token'
-      }
-      #swagger.parameters['page'] = {
-        in: 'query',
-        required: false,
-        type: 'integer',
-        example: 1
-      }
-      #swagger.responses[200] = {
-        description: 'Liste des animes',
-        schema: [
-          { id: 1, title: 'Naruto', imageUrl: 'https://example.com/naruto.jpg' }
-        ]
-      }
-      #swagger.responses[401] = {
-        description: 'Token manquant ou invalide',
-        schema: { error: 'UNAUTHORIZED' }
-      }
-      #swagger.responses[500] = {
-        description: 'Erreur interne Gateway',
-        schema: { error: 'INTERNAL_SERVER_ERROR' }
-      }
-    */
+    /**
+     * @openapi
+     * /catalog:
+     *   get:
+     *     summary: Recuperer le catalogue
+     *     tags:
+     *       - Catalog
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - in: query
+     *         name: page
+     *         required: false
+     *         schema:
+     *           type: integer
+     *         example: 1
+     *     responses:
+     *       200:
+     *         description: Liste des animes
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 type: object
+     *                 properties:
+     *                   id:
+     *                     type: integer
+     *                     example: 1
+     *                   title:
+     *                     type: string
+     *                     example: "Naruto"
+     *                   imageUrl:
+     *                     type: string
+     *                     example: "https://example.com/naruto.jpg"
+     *       401:
+     *         description: Token manquant ou invalide
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "UNAUTHORIZED"
+     *       500:
+     *         description: Erreur interne Gateway
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "INTERNAL_SERVER_ERROR"
+     */
     handleGetCatalog,
 );
 
 router.get(
     "/top",
-    /*
-      #swagger.tags = ['Catalog']
-      #swagger.summary = 'Récupérer le top du catalogue'
-      #swagger.parameters['Authorization'] = {
-        in: 'header',
-        required: true,
-        type: 'string',
-        description: 'Bearer token'
-      }
-      #swagger.parameters['page'] = {
-        in: 'query',
-        required: false,
-        type: 'integer',
-        example: 1
-      }
-      #swagger.responses[200] = {
-        description: 'Liste des animes les mieux notés',
-        schema: [
-          { id: 1, title: 'Naruto', imageUrl: 'https://example.com/naruto.jpg' }
-        ]
-      }
-      #swagger.responses[401] = {
-        description: 'Token manquant ou invalide',
-        schema: { error: 'UNAUTHORIZED' }
-      }
-      #swagger.responses[500] = {
-        description: 'Erreur interne Gateway',
-        schema: { error: 'INTERNAL_SERVER_ERROR' }
-      }
-    */
+    /**
+     * @openapi
+     * /catalog/top:
+     *   get:
+     *     summary: Recuperer le top du catalogue
+     *     tags:
+     *       - Catalog
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - in: query
+     *         name: page
+     *         required: false
+     *         schema:
+     *           type: integer
+     *         example: 1
+     *     responses:
+     *       200:
+     *         description: Liste des animes les mieux notes
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 type: object
+     *                 properties:
+     *                   id:
+     *                     type: integer
+     *                     example: 1
+     *                   title:
+     *                     type: string
+     *                     example: "Naruto"
+     *                   imageUrl:
+     *                     type: string
+     *                     example: "https://example.com/naruto.jpg"
+     *       401:
+     *         description: Token manquant ou invalide
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "UNAUTHORIZED"
+     *       500:
+     *         description: Erreur interne Gateway
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "INTERNAL_SERVER_ERROR"
+     */
     handleGetCatalogTop,
 );
 
 router.get(
     "/type/:q/top",
-    /*
-      #swagger.tags = ['Catalog']
-      #swagger.summary = 'Récupérer le top du catalogue filtré par type'
-      #swagger.parameters['Authorization'] = {
-        in: 'header',
-        required: true,
-        type: 'string',
-        description: 'Bearer token'
-      }
-      #swagger.parameters['q'] = {
-        in: 'path',
-        required: true,
-        type: 'string',
-        example: 'action'
-      }
-      #swagger.responses[200] = {
-        description: 'Liste des animes filtrés',
-        schema: [
-          { id: 1, title: 'Naruto', imageUrl: 'https://example.com/naruto.jpg' }
-        ]
-      }
-      #swagger.responses[401] = {
-        description: 'Token manquant ou invalide',
-        schema: { error: 'UNAUTHORIZED' }
-      }
-      #swagger.responses[500] = {
-        description: 'Erreur interne Gateway',
-        schema: { error: 'INTERNAL_SERVER_ERROR' }
-      }
-    */
+    /**
+     * @openapi
+     * /catalog/type/{q}/top:
+     *   get:
+     *     summary: Recuperer le top du catalogue filtre par type
+     *     tags:
+     *       - Catalog
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - in: path
+     *         name: q
+     *         required: true
+     *         schema:
+     *           type: string
+     *         example: "action"
+     *     responses:
+     *       200:
+     *         description: Liste des animes filtres
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 type: object
+     *                 properties:
+     *                   id:
+     *                     type: integer
+     *                     example: 1
+     *                   title:
+     *                     type: string
+     *                     example: "Naruto"
+     *                   imageUrl:
+     *                     type: string
+     *                     example: "https://example.com/naruto.jpg"
+     *       401:
+     *         description: Token manquant ou invalide
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "UNAUTHORIZED"
+     *       500:
+     *         description: Erreur interne Gateway
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "INTERNAL_SERVER_ERROR"
+     */
     handleGetCatalogFiltered,
 )
 
 router.get(
     "/category/:q/top",
-    /*
-      #swagger.tags = ['Catalog']
-      #swagger.summary = 'Récupérer le top du catalogue filtré par catégorie'
-      #swagger.parameters['Authorization'] = {
-        in: 'header',
-        required: true,
-        type: 'string',
-        description: 'Bearer token'
-      }
-      #swagger.parameters['q'] = {
-        in: 'path',
-        required: true,
-        type: 'string',
-        example: 'action'
-      }
-      #swagger.responses[200] = {
-        description: 'Liste des animes filtrés',
-        schema: [
-          { id: 1, title: 'Naruto', imageUrl: 'https://example.com/naruto.jpg' }
-        ]
-      }
-      #swagger.responses[401] = {
-        description: 'Token manquant ou invalide',
-        schema: { error: 'UNAUTHORIZED' }
-      }
-      #swagger.responses[500] = {
-        description: 'Erreur interne Gateway',
-        schema: { error: 'INTERNAL_SERVER_ERROR' }
-      }
-    */
+    /**
+     * @openapi
+     * /catalog/category/{q}/top:
+     *   get:
+     *     summary: Recuperer le top du catalogue filtre par categorie
+     *     tags:
+     *       - Catalog
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - in: path
+     *         name: q
+     *         required: true
+     *         schema:
+     *           type: string
+     *         example: "action"
+     *     responses:
+     *       200:
+     *         description: Liste des animes filtres
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 type: object
+     *                 properties:
+     *                   id:
+     *                     type: integer
+     *                     example: 1
+     *                   title:
+     *                     type: string
+     *                     example: "Naruto"
+     *                   imageUrl:
+     *                     type: string
+     *                     example: "https://example.com/naruto.jpg"
+     *       401:
+     *         description: Token manquant ou invalide
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "UNAUTHORIZED"
+     *       500:
+     *         description: Erreur interne Gateway
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "INTERNAL_SERVER_ERROR"
+     */
     handleGetCatalogFiltered,
 )
 
 router.get(
     "/type/:q",
-    /*
-      #swagger.tags = ['Catalog']
-      #swagger.summary = 'Récupérer le catalogue filtré par type'
-      #swagger.parameters['Authorization'] = {
-        in: 'header',
-        required: true,
-        type: 'string',
-        description: 'Bearer token'
-      }
-      #swagger.parameters['q'] = {
-        in: 'path',
-        required: true,
-        type: 'string',
-        example: 'action'
-      }
-      #swagger.parameters['page'] = {
-        in: 'query',
-        required: false,
-        type: 'integer',
-        example: 1
-      }
-      #swagger.responses[200] = {
-        description: 'Liste des animes filtrés',
-        schema: [
-          { id: 1, title: 'Naruto', imageUrl: 'https://example.com/naruto.jpg' }
-        ]
-      }
-      #swagger.responses[401] = {
-        description: 'Token manquant ou invalide',
-        schema: { error: 'UNAUTHORIZED' }
-      }
-      #swagger.responses[500] = {
-        description: 'Erreur interne Gateway',
-        schema: { error: 'INTERNAL_SERVER_ERROR' }
-      }
-    */
+    /**
+     * @openapi
+     * /catalog/type/{q}:
+     *   get:
+     *     summary: Recuperer le catalogue filtre par type
+     *     tags:
+     *       - Catalog
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - in: path
+     *         name: q
+     *         required: true
+     *         schema:
+     *           type: string
+     *         example: "action"
+     *       - in: query
+     *         name: page
+     *         required: false
+     *         schema:
+     *           type: integer
+     *         example: 1
+     *     responses:
+     *       200:
+     *         description: Liste des animes filtres
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 type: object
+     *                 properties:
+     *                   id:
+     *                     type: integer
+     *                     example: 1
+     *                   title:
+     *                     type: string
+     *                     example: "Naruto"
+     *                   imageUrl:
+     *                     type: string
+     *                     example: "https://example.com/naruto.jpg"
+     *       401:
+     *         description: Token manquant ou invalide
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "UNAUTHORIZED"
+     *       500:
+     *         description: Erreur interne Gateway
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "INTERNAL_SERVER_ERROR"
+     */
     handleGetCatalogFiltered,
 )
 
 router.get(
     "/category/:q",
-    /*
-      #swagger.tags = ['Catalog']
-      #swagger.summary = 'Récupérer le catalogue filtré par catégorie'
-      #swagger.parameters['Authorization'] = {
-        in: 'header',
-        required: true,
-        type: 'string',
-        description: 'Bearer token'
-      }
-      #swagger.parameters['q'] = {
-        in: 'path',
-        required: true,
-        type: 'string',
-        example: 'action'
-      }
-      #swagger.parameters['page'] = {
-        in: 'query',
-        required: false,
-        type: 'integer',
-        example: 1
-      }
-      #swagger.responses[200] = {
-        description: 'Liste des animes filtrés',
-        schema: [
-          { id: 1, title: 'Naruto', imageUrl: 'https://example.com/naruto.jpg' }
-        ]
-      }
-      #swagger.responses[401] = {
-        description: 'Token manquant ou invalide',
-        schema: { error: 'UNAUTHORIZED' }
-      }
-      #swagger.responses[500] = {
-        description: 'Erreur interne Gateway',
-        schema: { error: 'INTERNAL_SERVER_ERROR' }
-      }
-    */
+    /**
+     * @openapi
+     * /catalog/category/{q}:
+     *   get:
+     *     summary: Recuperer le catalogue filtre par categorie
+     *     tags:
+     *       - Catalog
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - in: path
+     *         name: q
+     *         required: true
+     *         schema:
+     *           type: string
+     *         example: "action"
+     *       - in: query
+     *         name: page
+     *         required: false
+     *         schema:
+     *           type: integer
+     *         example: 1
+     *     responses:
+     *       200:
+     *         description: Liste des animes filtres
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 type: object
+     *                 properties:
+     *                   id:
+     *                     type: integer
+     *                     example: 1
+     *                   title:
+     *                     type: string
+     *                     example: "Naruto"
+     *                   imageUrl:
+     *                     type: string
+     *                     example: "https://example.com/naruto.jpg"
+     *       401:
+     *         description: Token manquant ou invalide
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "UNAUTHORIZED"
+     *       500:
+     *         description: Erreur interne Gateway
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "INTERNAL_SERVER_ERROR"
+     */
     handleGetCatalogFiltered,
 )
 
 router.get(
     "/anime/id/:animeId",
-    /*
-      #swagger.tags = ['Catalog']
-      #swagger.summary = 'Récupérer un anime par son ID'
-      #swagger.parameters['Authorization'] = {
-        in: 'header',
-        required: true,
-        type: 'string',
-        description: 'Bearer token'
-      }
-      #swagger.parameters['animeId'] = {
-        in: 'path',
-        required: true,
-        type: 'integer',
-        example: 1
-      }
-      #swagger.responses[200] = {
-        description: 'Anime trouvé',
-        schema: {
-          id: 1,
-          title: 'Naruto',
-          synopsis: '...',
-          imageUrl: 'https://example.com/naruto.jpg'
-        }
-      }
-      #swagger.responses[400] = {
-        description: 'Entrée invalide',
-        schema: { error: 'INVALID_INPUT' }
-      }
-      #swagger.responses[401] = {
-        description: 'Token manquant ou invalide',
-        schema: { error: 'UNAUTHORIZED' }
-      }
-      #swagger.responses[404] = {
-        description: 'Anime non trouvé',
-        schema: { error: 'NOT_FOUND', message: 'anime not found in Jikan API' }
-      }
-      #swagger.responses[500] = {
-        description: 'Erreur interne Gateway',
-        schema: { error: 'INTERNAL_SERVER_ERROR' }
-      }
-    */
+    /**
+     * @openapi
+     * /catalog/anime/id/{animeId}:
+     *   get:
+     *     summary: Recuperer un anime par son ID
+     *     tags:
+     *       - Catalog
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - in: path
+     *         name: animeId
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         example: 1
+     *     responses:
+     *       200:
+     *         description: Anime trouve
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 id:
+     *                   type: integer
+     *                   example: 1
+     *                 title:
+     *                   type: string
+     *                   example: "Naruto"
+     *                 synopsis:
+     *                   type: string
+     *                   example: "..."
+     *                 imageUrl:
+     *                   type: string
+     *                   example: "https://example.com/naruto.jpg"
+     *       400:
+     *         description: Entree invalide
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "INVALID_INPUT"
+     *       401:
+     *         description: Token manquant ou invalide
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "UNAUTHORIZED"
+     *       404:
+     *         description: Anime non trouve
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "NOT_FOUND"
+     *                 message:
+     *                   type: string
+     *                   example: "anime not found in Jikan API"
+     *       500:
+     *         description: Erreur interne Gateway
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "INTERNAL_SERVER_ERROR"
+     */
     handleGetAnimeById,
 );
 
 router.get(
     "/anime/name/:q",
-    /*
-      #swagger.tags = ['Catalog']
-      #swagger.summary = 'Rechercher des animes par nom'
-      #swagger.parameters['Authorization'] = {
-        in: 'header',
-        required: true,
-        type: 'string',
-        description: 'Bearer token'
-      }
-      #swagger.parameters['q'] = {
-        in: 'path',
-        required: true,
-        type: 'string',
-        example: 'naruto'
-      }
-      #swagger.responses[200] = {
-        description: 'Liste des animes correspondants',
-        schema: [
-          { id: 1, title: 'Naruto', imageUrl: 'https://example.com/naruto.jpg' }
-        ]
-      }
-      #swagger.responses[400] = {
-        description: 'Entrée invalide',
-        schema: { error: 'INVALID_INPUT' }
-      }
-      #swagger.responses[401] = {
-        description: 'Token manquant ou invalide',
-        schema: { error: 'UNAUTHORIZED' }
-      }
-      #swagger.responses[500] = {
-        description: 'Erreur interne Gateway',
-        schema: { error: 'INTERNAL_SERVER_ERROR' }
-      }
-    */
+    /**
+     * @openapi
+     * /catalog/anime/name/{q}:
+     *   get:
+     *     summary: Rechercher des animes par nom
+     *     tags:
+     *       - Catalog
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - in: path
+     *         name: q
+     *         required: true
+     *         schema:
+     *           type: string
+     *         example: "naruto"
+     *     responses:
+     *       200:
+     *         description: Liste des animes correspondants
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 type: object
+     *                 properties:
+     *                   id:
+     *                     type: integer
+     *                     example: 1
+     *                   title:
+     *                     type: string
+     *                     example: "Naruto"
+     *                   imageUrl:
+     *                     type: string
+     *                     example: "https://example.com/naruto.jpg"
+     *       400:
+     *         description: Entree invalide
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "INVALID_INPUT"
+     *       401:
+     *         description: Token manquant ou invalide
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "UNAUTHORIZED"
+     *       500:
+     *         description: Erreur interne Gateway
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   example: "INTERNAL_SERVER_ERROR"
+     */
     handleGetAnimeByName,
 );
 

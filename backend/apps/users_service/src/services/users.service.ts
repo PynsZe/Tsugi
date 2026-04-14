@@ -17,7 +17,7 @@ export const getMe = async (userId: string): Promise<Me> => {
     return user
 }
 
-export const setVisibilityChanges = async (visibility: VisibilityType, userId: string): Promise<void> => {
+export const setVisibilityChanges = async (visibility: VisibilityType, userId: string): Promise<Me> => {
     const user = await UserModel.findById(userId).select(
         "username email imageUrl animeList profileVisibility createdAt updatedAt"
     )
@@ -27,6 +27,8 @@ export const setVisibilityChanges = async (visibility: VisibilityType, userId: s
 
     user.profileVisibility = visibility
     await user.save()
+
+    return user
 }
 
 export const getList = async (userId: string): Promise<Partial<Me>> => {

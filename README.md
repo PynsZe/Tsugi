@@ -4,17 +4,23 @@ Ce README centralise les points pratiques pour lancer le projet et consommer l'A
 
 ## Lancer le projet
 
+* docker compose
+* node 20 ou +
+
 ```bash
-cd backend
-npm run dev
+cd Tsugi
+
+npm install --prefix backend/
+docker compose -f compose.dev.yaml up
 ```
 
 ## Documentation Swagger (Gateway)
 
-Dans le code actuel, la version API est definie dans `backend/packages/config/config.ts` avec `version = 1`, donc le prefixe est `/api/v1`.
+Dans le code actuel, la version API est definie dans `backend/packages/config/config.ts` avec `version = 1`, donc le
+prefixe est `/api/v1`.
 
-- UI: `http://localhost:3000/api/v1/doc`
-- JSON: `http://localhost:3000/api/v1/doc/spec/gateway.json`
+- UI: `http://localhost:5000/api/v1/doc`
+- JSON: `http://localhost:5000/api/v1/doc/spec/gateway.json`
 
 ## Regenerer la doc (si besoin)
 
@@ -25,7 +31,7 @@ npm run swagger --prefix apps/gateway
 
 ## Base API et format JSON
 
-- Base URL locale Gateway: `http://localhost:3000/api/v1`
+- Base URL locale Gateway: `http://localhost:5000/api/v1`
 - Les routes attendent et renvoient du JSON (`Content-Type: application/json`).
 - Cote client, penser a envoyer le header suivant sur les requetes avec body:
 
@@ -72,7 +78,7 @@ Authorization: Bearer <jwt>
 Exemple:
 
 ```bash
-curl -X GET "http://localhost:3000/api/v1/catalog" \
+curl -X GET "http://localhost:5000/api/v1/catalog" \
   -H "Authorization: Bearer <jwt>"
 ```
 
@@ -123,10 +129,10 @@ Validation de params (exemple):
 {
   "error": "INVALID_PARAMS",
   "details": [
-	{
-	  "path": "id",
-	  "message": "Number must be greater than 0"
-	}
+    {
+      "path": "id",
+      "message": "Number must be greater than 0"
+    }
   ]
 }
 ```
@@ -160,9 +166,9 @@ En pratique, cela reduit:
 
 Variables partagees (voir `backend/packages/config/config.ts`):
 
-- `PORT` (Gateway, defaut `3000`)
-- `AUTH_SERVICE_PORT` (defaut `3001`)
-- `CATALOG_SERVICE_PORT` (defaut `3002`)
+- `PORT` (Gateway, defaut `5000`)
+- `AUTH_SERVICE_PORT` (defaut `5001`)
+- `CATALOG_SERVICE_PORT` (defaut `5002`)
 - `JWT_SECRET`
 - `JWT_EXPIRES_IN` (defaut `1h`)
 - `NEED_AUTHENTICATION` (`1` ou `0`)

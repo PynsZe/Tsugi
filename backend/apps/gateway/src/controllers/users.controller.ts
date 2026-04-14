@@ -28,7 +28,12 @@ export async function handlePatchVisibility(req: Request, res: Response, next: N
 			body: JSON.stringify(req.body)
 		});
 
-		const data = await response.json();
+		const rawBody = await response.text();
+		if (!rawBody) {
+			return res.sendStatus(response.status);
+		}
+
+		const data = JSON.parse(rawBody);
 		return res.status(response.status).json(data);
 	} catch (error) {
 		next(error);
