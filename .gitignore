@@ -1,0 +1,31 @@
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nuxt-local
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules
+package-lock.json
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env.prod
+!.env.example
+
+# Editor directories and files
+.vscode
+
+# Database files
+mongo-data/

@@ -1,0 +1,35 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bash scripts/install.sh && bash scripts/dev.sh",
+    "start": "bash scripts/dev.sh",
+    "install": "bash scripts/install.sh"
+  },
+  "dependencies": {
+    "20": "^3.1.9",
+    "dotenv": "^17.4.1",
+    "http-proxy-middleware": "^3.0.5",
+    "jsonwebtoken": "^9.0.3",
+    "mongo": "^0.1.0",
+    "mongodb-memory-server": "^11.0.1",
+    "mongoose": "^9.2.4",
+    "node": "^22.22.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
+    "cross-env": "^10.1.0"
+  }
+}

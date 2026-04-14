@@ -1,0 +1,1391 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Catalog Service API",
+    "description": "Documentation Swagger du catalog service",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3002/"
+    }
+  ],
+  "paths": {
+    "/doc-json": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/catalog/": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Récupérer le catalogue filtré",
+        "description": "",
+        "parameters": [
+          {
+            "name": "kind",
+            "in": "path",
+            "description": "Type de filtre (ex: genre)",
+            "required": true,
+            "example": "genre",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "path",
+            "description": "Valeur du filtre",
+            "required": true,
+            "example": "action",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Numéro de page",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des animes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne"
+          }
+        }
+      }
+    },
+    "/catalog/top": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Récupérer le catalogue filtré",
+        "description": "",
+        "parameters": [
+          {
+            "name": "kind",
+            "in": "path",
+            "description": "Type de filtre (ex: genre)",
+            "required": true,
+            "example": "genre",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "path",
+            "description": "Valeur du filtre",
+            "required": true,
+            "example": "action",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Numéro de page",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des animes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne"
+          }
+        }
+      }
+    },
+    "/catalog/{kind(type|category)}/{q}/top": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Récupérer le catalogue filtré",
+        "description": "",
+        "parameters": [
+          {
+            "name": "kind(type|category)",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valeur du filtre",
+            "example": "action"
+          },
+          {
+            "name": "kind",
+            "in": "path",
+            "description": "Type de filtre (ex: genre)",
+            "required": true,
+            "example": "genre",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Numéro de page",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des animes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne"
+          }
+        }
+      }
+    },
+    "/catalog/{kind(type|category)}/{q}": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Récupérer le catalogue filtré",
+        "description": "",
+        "parameters": [
+          {
+            "name": "kind(type|category)",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valeur du filtre",
+            "example": "action"
+          },
+          {
+            "name": "kind",
+            "in": "path",
+            "description": "Type de filtre (ex: genre)",
+            "required": true,
+            "example": "genre",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Numéro de page",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des animes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne"
+          }
+        }
+      }
+    },
+    "/catalog/anime/id/{animeId}": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Récupérer un anime par son ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "animeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de l'anime",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Anime trouvé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "Naruto"
+                    },
+                    "synopsis": {
+                      "type": "string",
+                      "example": "..."
+                    },
+                    "imageUrl": {
+                      "type": "string",
+                      "example": "https://example.com/naruto.jpg"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "Naruto"
+                    },
+                    "synopsis": {
+                      "type": "string",
+                      "example": "..."
+                    },
+                    "imageUrl": {
+                      "type": "string",
+                      "example": "https://example.com/naruto.jpg"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrée invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "INVALID_INPUT"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "INVALID_INPUT"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Anime non trouvé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Anime not found"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Anime not found"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne"
+          }
+        }
+      }
+    },
+    "/catalog/anime/name/{q}": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Rechercher des animes par nom",
+        "description": "",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Terme de recherche",
+            "example": "naruto"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des animes correspondants",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrée invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "INVALID_INPUT"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "INVALID_INPUT"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Récupérer le catalogue filtré",
+        "description": "",
+        "parameters": [
+          {
+            "name": "kind",
+            "in": "path",
+            "description": "Type de filtre (ex: genre)",
+            "required": true,
+            "example": "genre",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "path",
+            "description": "Valeur du filtre",
+            "required": true,
+            "example": "action",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Numéro de page",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des animes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne"
+          }
+        }
+      }
+    },
+    "/top": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Récupérer le catalogue filtré",
+        "description": "",
+        "parameters": [
+          {
+            "name": "kind",
+            "in": "path",
+            "description": "Type de filtre (ex: genre)",
+            "required": true,
+            "example": "genre",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "path",
+            "description": "Valeur du filtre",
+            "required": true,
+            "example": "action",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Numéro de page",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des animes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne"
+          }
+        }
+      }
+    },
+    "/{kind(type|category)}/{q}/top": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Récupérer le catalogue filtré",
+        "description": "",
+        "parameters": [
+          {
+            "name": "kind(type|category)",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valeur du filtre",
+            "example": "action"
+          },
+          {
+            "name": "kind",
+            "in": "path",
+            "description": "Type de filtre (ex: genre)",
+            "required": true,
+            "example": "genre",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Numéro de page",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des animes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne"
+          }
+        }
+      }
+    },
+    "/{kind(type|category)}/{q}": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Récupérer le catalogue filtré",
+        "description": "",
+        "parameters": [
+          {
+            "name": "kind(type|category)",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valeur du filtre",
+            "example": "action"
+          },
+          {
+            "name": "kind",
+            "in": "path",
+            "description": "Type de filtre (ex: genre)",
+            "required": true,
+            "example": "genre",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Numéro de page",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des animes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne"
+          }
+        }
+      }
+    },
+    "/anime/id/{animeId}": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Récupérer un anime par son ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "animeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de l'anime",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Anime trouvé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "Naruto"
+                    },
+                    "synopsis": {
+                      "type": "string",
+                      "example": "..."
+                    },
+                    "imageUrl": {
+                      "type": "string",
+                      "example": "https://example.com/naruto.jpg"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "Naruto"
+                    },
+                    "synopsis": {
+                      "type": "string",
+                      "example": "..."
+                    },
+                    "imageUrl": {
+                      "type": "string",
+                      "example": "https://example.com/naruto.jpg"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrée invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "INVALID_INPUT"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "INVALID_INPUT"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Anime non trouvé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Anime not found"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Anime not found"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne"
+          }
+        }
+      }
+    },
+    "/anime/name/{q}": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Rechercher des animes par nom",
+        "description": "",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Terme de recherche",
+            "example": "naruto"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des animes correspondants",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Naruto"
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "example": "https://example.com/naruto.jpg"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrée invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "INVALID_INPUT"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "INVALID_INPUT"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erreur interne"
+          }
+        }
+      }
+    }
+  }
+}
